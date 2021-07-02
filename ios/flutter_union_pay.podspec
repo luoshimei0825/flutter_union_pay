@@ -9,9 +9,9 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A Flutter project for Union Pay.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/luoshimei0825'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'luoshimei' => '0x005168@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
@@ -19,5 +19,9 @@ A Flutter project for Union Pay.
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = '5.0'
+
+  s.frameworks = 'CFNetwork', 'SystemConfiguration'
+  s.libraries = 'z','c++'
+  s.vendored_libraries = 'Classes/SDK/libPaymentControl.a'
+  s.static_framework = true
 end

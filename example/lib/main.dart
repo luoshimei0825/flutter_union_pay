@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_union_pay/flutter_union_pay.dart';
+import 'package:flutter_union_pay/enum/union_pay_enum.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,17 +41,55 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _platformVersion = platformVersion;
     });
+
+    FlutterUnionPay.listen((result) {
+      showDialog(
+        context: context,
+        child: SimpleDialog(
+          title: Text('TEST'),
+          children: [
+            Text(result.status.toString()),
+          ],
+        ),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            FlutterUnionPay.pay(
+              tn: "879155096764620468515",
+              mode: PaymentMode.product,
+              scheme: "UnionPayExample",
+            ).then((value) {
+              print("##########$value");
+            });
+          },
+          child: Icon(Icons.payment),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        appBar: AppBar(
+          title: const Text('Plugin Example App'),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: Text('Running on: $_platformVersion\n'),
+            ),
+            Builder(builder: (context) {
+              return TextButton(
+                onPressed: () {
+                  FlutterUnionPay.isPaymentAppInstalled.then((value) {
+                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                  });
+                },
+                child: Text('Check Payment App Installed'),
+              );
+            }),
+          ],
         ),
       ),
     );

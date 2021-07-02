@@ -1,8 +1,8 @@
 name: flutter_union_pay
 description: A Flutter project for Union Pay.
 version: 0.0.1
-author:
-homepage:
+author: luoshimei
+homepage: https://github.com/luoshimei0825
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
